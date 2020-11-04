@@ -1,23 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 
 import  { Button, Input, notification } from 'antd';
-//import '../styles/login.css';
 
-export const registro = () => {
+const Register = () => {
 
-    const [persona, setPersona] = useState({ name: "", lastname: "", age: "", email: "" })
+    const initialPersona = 
+      { 
+        name: "", 
+        lastname: "", 
+        age: "", 
+        email: "" 
+      }
+    
+
+    const [persona, setPersona] = useState(initialPersona)
 
     //destructuramos el useState persona
     const { name, lastname, age, email } = persona;
 
-    const manageForm = (event) => {
+    const manageForm = (e) => {
 
-        const { name, value } = event.target;
-
-        setPersona(add => ({
-            ...add,
-            [name]: value
-        }))
+        setPersona({
+          ...persona,
+          [e.target.name]: e.target.value
+        }) 
     }
 
 
@@ -30,7 +36,7 @@ export const registro = () => {
     // Notificacion ANT DESIGN
     const openNotification = () => {
         notification.open({
-          message: 'REGISTRADO!',
+          message: 'REGISTRO SATISFACTORIO!',
           description:
             `Nombre: ${name}, Apellido: ${lastname}, Edad: ${age}, Correo: ${email} `,
           className: 'custom-class',
@@ -49,17 +55,17 @@ export const registro = () => {
                     
                 <label>Nombre</label>
                 <Input type="text" value={name} name="name" onChange={ manageForm } required/>
-                <br />
+                
                 <label>Apellido</label>
                 <Input type="text" value={lastname} name="lastname" onChange={ manageForm } required  />
-                <br />
+
                 <label>Edad</label>
                 <Input type="number" value={age} name="age" onChange={ manageForm } required  />
-                <br />
+
                 <label>Correo Electrónico</label>
                 <Input type="text" value={email} name="email" onChange={ manageForm } required  />
-                <br />
-                <Button type="primary" onClick= { openNotification }>REGISTRAR</Button>
+
+                <Button type="primary" onClick= { openNotification }>REGISTRARSE</Button>
 
             </div>
 
@@ -68,4 +74,5 @@ export const registro = () => {
     )
 }
 
-export default registro
+export default Register;
+
